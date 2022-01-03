@@ -11,7 +11,7 @@ let days = [
   "Saturday",
 ];
 console.log(days);
-
+console.log(now.getDay());
 let day = days[now.getDay()];
 console.log(day);
 
@@ -28,15 +28,40 @@ let current = document.querySelector("h5");
 current.innerHTML = `${day} ${hour}:${minutes}`;
 console.log(current);
 
+let iconMap = {
+  Rain: "src/images/lightrain.png",
+  Drizzle: "src/images/lightrain.png",
+  Thunderstorm: "src/images/lightening.png",
+  Snow: "src/images/snow.png",
+  Clear: "src/images/sunny.png",
+  Clouds: "src/images/cloudy.png",
+  Mist: "src/images/lightrain.png",
+};
+
 //City search and Current Temperature:
 function showTemp(response) {
+  console.log(response.data.weather[0].main);
+  console.log(response.data.wind.speed);
   console.log(response.data.name);
   console.log(response.data.main.temp);
   let temp = Math.round(response.data.main.temp);
+  if (temp < 10) {
+    temp = `0${temp}`;
+  }
   let showTemp = document.querySelector(`#showTemp`);
   showTemp.innerHTML = `${temp}`;
   let city = document.querySelector(`#mainCity`);
   city.innerHTML = `${response.data.name}`;
+  let speed = Math.round(response.data.wind.speed);
+  let windSpeed = document.querySelector(`#windSpeed`);
+  windSpeed.innerHTML = `Wind Speed: ${speed}`;
+  let weatherCondition = response.data.weather[0].main;
+  let weatherDescription = document.querySelector(`#weatherDescription`);
+  weatherDescription.innerHTML = `${weatherCondition}`;
+  let mainIcon = document.querySelector(`#mainImage`);
+  mainIcon.src = `${iconMap[weatherCondition]}`;
+  console.log(iconMap[weatherCondition]);
+  console.log(weatherCondition);
 }
 function findCity(event) {
   event.preventDefault();
