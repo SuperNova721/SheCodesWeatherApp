@@ -102,7 +102,9 @@ function locationClick(event) {
 
 function showFahrenheit(event) {
   event.preventDefault();
-  alert("link Clicked");
+  let temp = document.querySelector("#showTemp");
+  let fahrenheitTemp = (temp.innerHTML * 9) / 5 + 32;
+  temp.innerHTML = Math.round(fahrenheitTemp);
 }
 
 let form = document.querySelector("#searchbar");
@@ -115,6 +117,8 @@ getLocation.addEventListener("click", locationClick);
 let fahrenheitLink = document.querySelector("#fahrenheitLink");
 console.log("fahrenheitLink");
 fahrenheitLink.addEventListener("click", showFahrenheit);
+
+let celsiusTemp = null;
 
 //when searching for a city, display city name and temperature
 //user will click the searchbar, type city name, click submit

@@ -14,7 +14,8 @@
 
 .temp-icon {
   height: 260px;
-  padding: 0 24px 0 0;
+  padding: 190px 24px 0 0;
+  margin-top: ;
 }
 
 .weather-condition {
@@ -27,6 +28,9 @@
   margin: 90px 0 0 55px;
   padding: 0 auto;
   width: 300px;
+  position: relative;
+  top: 55px;
+  left: 40px;
 }
 
 .wind-speed,
@@ -39,7 +43,7 @@
 }
 
 h1,
-h6,
+a.celcius,
 .forcast-day {
   font-family: "Baloo 2", cursive;
   height: 150px;
@@ -47,17 +51,18 @@ h6,
 
 h1 {
   color: rgb(78, 174, 83);
-  font-size: 240px;
+  font-size: 200px;
   height: 0;
   margin: 120px 0 0 0;
   text-align: right;
-  padding: 0;
+  padding: 35px 0 0 0;
 }
 
-h6 {
+a.celcius {
   color: rgb(78, 174, 83);
+  text-decoration: none;
   text-align: left;
-  font-size: 90px;
+  font-size: 85px;
   height: 100px;
   margin: 160px 0 0 0;
   padding: 0 auto;
@@ -74,7 +79,7 @@ h6 {
 a {
   color: #fda90e;
 }
-a:link {
+a.fahrenheit {
   text-decoration: none;
   font-size: 20px;
   margin-top: 60px;
