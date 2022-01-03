@@ -63,12 +63,14 @@ function showTemp(response) {
   console.log(iconMap[weatherCondition]);
   console.log(weatherCondition);
 }
+
 function findCity(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#searchCity");
 
   search(cityInput.value);
 }
+
 function search(city) {
   let searchCity = document.querySelector("#searchCity");
   let cityLocation = searchCity.value;
@@ -98,12 +100,21 @@ function locationClick(event) {
   navigator.geolocation.getCurrentPosition(retrievePosition);
 }
 
+function showFahrenheit(event) {
+  event.preventDefault();
+  alert("link Clicked");
+}
+
 let form = document.querySelector("#searchbar");
 form.addEventListener("submit", findCity);
 
 let getLocation = document.querySelector("#currentLocation");
 console.log(getLocation);
 getLocation.addEventListener("click", locationClick);
+
+let fahrenheitLink = document.querySelector("#fahrenheitLink");
+console.log("fahrenheitLink");
+fahrenheitLink.addEventListener("click", showFahrenheit);
 
 //when searching for a city, display city name and temperature
 //user will click the searchbar, type city name, click submit
