@@ -38,6 +38,26 @@ let iconMap = {
   Mist: "src/images/lightrain.png",
 };
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#weatherForecast");
+
+  forecastElement.innerHTML = "";
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <p class="forecast-temp">
+        <span class="forecast-temp-max">35°</span>
+        <span>|</span>
+        <span class="forecast-temp-min">15°</span>
+      </p>
+      <div class="forecast-image">
+        <img src="src/images/cloudy.png" alt="clouds" width="40px" />
+      </div>
+      <p class="forecast-day">S</p>
+    </div>
+  </div>;
+}
+
 //City search and Current Temperature:
 function showTemp(response) {
   console.log(response.data.weather[0].main);
@@ -137,6 +157,8 @@ fahrenheitLink.addEventListener("click", showFahrenheit);
 let celciusLink = document.querySelector("#celciusLink");
 console.log("celciusLink");
 celciusLink.addEventListener("click", showCelcius);
+
+displayForecast();
 
 //when searching for a city, display city name and temperature
 //user will click the searchbar, type city name, click submit
