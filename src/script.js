@@ -44,10 +44,12 @@ function showTemp(response) {
   console.log(response.data.wind.speed);
   console.log(response.data.name);
   console.log(response.data.main.temp);
-  let temp = Math.round(response.data.main.temp);
-  if (temp < 10) {
-    temp = `0${temp}`;
-  }
+
+  celciusTemp = response.data.main.temp;
+  console.log(celciusTemp);
+
+  let temp = Math.round(celciusTemp);
+  console.log(temp);
   let showTemp = document.querySelector(`#showTemp`);
   showTemp.innerHTML = `${temp}`;
   let city = document.querySelector(`#mainCity`);
@@ -90,8 +92,11 @@ function retrievePosition(position) {
   let longitude = position.coords.longitude;
   let apiKey = "e285e913cd6f177ca8795431a5a72d10";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-
   axios.get(`${apiUrl}&appid${apiKey}`).then(showTemp);
+}
+
+function showCurrentCity(event) {
+  navigator.geolocation.getCurrentPosition(retrievePosition);
 }
 
 function locationClick(event) {
@@ -103,9 +108,20 @@ function locationClick(event) {
 function showFahrenheit(event) {
   event.preventDefault();
   let temp = document.querySelector("#showTemp");
-  let fahrenheitTemp = (temp.innerHTML * 9) / 5 + 32;
+  let fahrenheitTemp = (celciusTemp * 9) / 5 + 32;
+  console.log(fahrenheitTemp);
   temp.innerHTML = Math.round(fahrenheitTemp);
 }
+
+function showCelcius(event) {
+  event.preventDefault();
+  let temp = document.querySelector("#showTemp");
+  temp.innerHTML = Math.round(celciusTemp);
+}
+
+let celsiusTemp = null;
+
+window.addEventListener("load", showCurrentCity);
 
 let form = document.querySelector("#searchbar");
 form.addEventListener("submit", findCity);
@@ -118,7 +134,9 @@ let fahrenheitLink = document.querySelector("#fahrenheitLink");
 console.log("fahrenheitLink");
 fahrenheitLink.addEventListener("click", showFahrenheit);
 
-let celsiusTemp = null;
+let celciusLink = document.querySelector("#celciusLink");
+console.log("celciusLink");
+celciusLink.addEventListener("click", showCelcius);
 
 //when searching for a city, display city name and temperature
 //user will click the searchbar, type city name, click submit
@@ -126,3 +144,6 @@ let celsiusTemp = null;
 //Add current location button
 //current location button clicks Geolocation API coordinates,
 //display current city and temp using open weather api
+
+//when page loads current location in reflected in the mainicon,
+// and city name and temperature.
