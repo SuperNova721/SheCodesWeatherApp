@@ -41,9 +41,13 @@ let iconMap = {
 function displayForecast() {
   let forecastElement = document.querySelector("#weatherForecast");
 
-  forecastElement.innerHTML = "";
-  <div class="row">
-    <div class="col"></div>
+  let forecastHTML = `<div class="row week">`;
+  let days = ["S", "M", "T", "W", "TH", "F", "S"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+    
     <div class="col">
       <p class="forecast-temp">
         <span class="forecast-temp-max">35°</span>
@@ -53,9 +57,13 @@ function displayForecast() {
       <div class="forecast-image">
         <img src="src/images/cloudy.png" alt="clouds" width="40px" />
       </div>
-      <p class="forecast-day">S</p>
+      <p class="forecast-day">${day}</p>
     </div>
-  </div>;
+  `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
 }
 
 //City search and Current Temperature:

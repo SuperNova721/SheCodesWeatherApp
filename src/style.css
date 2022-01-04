@@ -174,13 +174,22 @@ p.forecast-temp {
   text-align: center;
 }
 
-.row-col-9 {
+.week {
+  margin: 0 50px 0 50px;
+}
+
+.week-col-9 {
   height: 150px;
 }
 
 .forecast-day {
   font-weight: bold;
   font-size: 25px;
+}
+
+h5 {
+  text-align: center;
+  margin: 0 auto;
 }
 
 footer {
