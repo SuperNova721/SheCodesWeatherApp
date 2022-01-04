@@ -57,6 +57,11 @@ h1 {
   padding: 35px 0 0 0;
 }
 
+h1:focus,
+h1:active {
+  color: rgb(78, 174, 83);
+}
+
 a.celcius {
   color: rgb(78, 174, 83);
   text-decoration: none;
@@ -73,12 +78,15 @@ a.celcius {
   font-size: 55px;
   margin: -60px 0 0 0;
   color: rgb(26, 178, 168);
+  height: 70px;
 }
 
-a {
-  color: #fda90e;
+a.celcius {
+  color: rgb(78, 174, 83);
 }
+
 a.fahrenheit {
+  color: #fda90e;
   text-decoration: none;
   font-size: 20px;
   margin-top: 60px;
@@ -87,6 +95,11 @@ a.fahrenheit {
 a:hover,
 a:active {
   color: rgb(184, 66, 247);
+}
+
+a:focus,
+a:active {
+  color: rgb(78, 174, 83);
 }
 
 form {
@@ -129,17 +142,30 @@ button.search.button {
   font-weight: bold;
 }
 
-.forcast-week {
+.forecast-week {
   text-align: center;
   margin: auto;
 }
 
-p.forcast-temp {
+p.forecast-temp {
   margin: 10px 0 0 0;
   color: rgb(78, 174, 83);
 }
 
-.forcast-image {
+.forecast-temp-max,
+.forecast-temp-min {
+  font-size: small;
+}
+
+.forecast-temp-max {
+  color: rgb(78, 174, 83);
+}
+
+.forecast-temp-min {
+  color: rgb(107, 229, 164);
+}
+
+.forecast-image {
   border: 5px solid black;
   border-radius: 65%;
   margin-left: auto;
@@ -152,7 +178,7 @@ p.forcast-temp {
   height: 150px;
 }
 
-.forcast-day {
+.forecast-day {
   font-weight: bold;
   font-size: 25px;
 }
