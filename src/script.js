@@ -38,27 +38,41 @@ let iconMap = {
   Mist: "src/images/lightrain.png",
 };
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["S", "M", "T", "W", "TH", "F", "S"];
+
+  return days[day];
+}
+
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#weatherForecast");
 
   let forecastHTML = `<div class="row week">`;
-  let days = ["S", "M", "T", "W", "TH", "F", "S"];
-  days.forEach(function (day) {
+
+  forecast.forEach(function (forecastDay) {
+    let weatherCondition = forecastDay.weather[0].main;
+    let forecastDayIcon = `${iconMap[weatherCondition]}`;
+
     forecastHTML =
       forecastHTML +
       `
     
     <div class="col">
       <p class="forecast-temp">
-        <span class="forecast-temp-max">35°</span>
+        <span class="forecast-temp-max">${Math.round(
+          forecastDay.temp.max
+        )}°</span>
         <span>|</span>
-        <span class="forecast-temp-min">15°</span>
+        <span class="forecast-temp-min">${Math.round(
+          forecastDay.temp.min
+        )}°</span>
       </p>
-      <div class="forecast-image">
-        <img src="src/images/cloudy.png" alt="clouds" width="40px" />
+      <div class="forecast-image">${forecastDayIcon}
       </div>
-      <p class="forecast-day">${day}</p>
+      <p class="forecast-day">${formatDay(forecastDay.dt)}</p>
     </div>
   `;
   });
@@ -71,13 +85,14 @@ function displayForecast(response) {
 function getForecast(coordinates) {
   console.log(coordinates);
   let apiKey = "e285e913cd6f177ca8795431a5a72d10";
-  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.latitude}&lon=${coordinates.longitude}&appid=${apiKey}&units=metric`;
+  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   console.log(apiURL);
 
   axios.get(apiURL).then(displayForecast);
 }
 
 function showTemp(response) {
+  console.log(response);
   console.log(response.data.weather[0].main);
   console.log(response.data.wind.speed);
   console.log(response.data.name);
@@ -102,6 +117,9 @@ function showTemp(response) {
   mainIcon.src = `${iconMap[weatherCondition]}`;
   console.log(iconMap[weatherCondition]);
   console.log(weatherCondition);
+
+  getForecast(response.data.coord);
+  console.log(response.data.coord);
 }
 
 function findCity(event) {
@@ -131,8 +149,6 @@ function retrievePosition(position) {
   let apiKey = "e285e913cd6f177ca8795431a5a72d10";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
   axios.get(`${apiUrl}&appid${apiKey}`).then(showTemp);
-
-  getForecast(position.coords);
 }
 
 function showCurrentCity(event) {
