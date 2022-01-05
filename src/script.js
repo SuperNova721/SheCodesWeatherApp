@@ -38,7 +38,8 @@ let iconMap = {
   Mist: "src/images/lightrain.png",
 };
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data.daily);
   let forecastElement = document.querySelector("#weatherForecast");
 
   let forecastHTML = `<div class="row week">`;
@@ -67,6 +68,15 @@ function displayForecast() {
 }
 
 //City search and Current Temperature:
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "e285e913cd6f177ca8795431a5a72d10";
+  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.latitude}&lon=${coordinates.longitude}&appid=${apiKey}&units=metric`;
+  console.log(apiURL);
+
+  axios.get(apiURL).then(displayForecast);
+}
+
 function showTemp(response) {
   console.log(response.data.weather[0].main);
   console.log(response.data.wind.speed);
@@ -121,6 +131,8 @@ function retrievePosition(position) {
   let apiKey = "e285e913cd6f177ca8795431a5a72d10";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
   axios.get(`${apiUrl}&appid${apiKey}`).then(showTemp);
+
+  getForecast(position.coords);
 }
 
 function showCurrentCity(event) {
@@ -165,8 +177,6 @@ fahrenheitLink.addEventListener("click", showFahrenheit);
 let celciusLink = document.querySelector("#celciusLink");
 console.log("celciusLink");
 celciusLink.addEventListener("click", showCelcius);
-
-displayForecast();
 
 //when searching for a city, display city name and temperature
 //user will click the searchbar, type city name, click submit
