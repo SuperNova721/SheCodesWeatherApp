@@ -24,12 +24,12 @@
 
 .main.image {
   display: block;
-  margin: 90px 0 0 55px;
+  margin: 45px 0 0 55px;
   padding: 0 auto;
-  width: 300px;
+  width: 350px;
   position: relative;
   top: 55px;
-  left: 40px;
+  left: 10px;
 }
 
 .wind-speed,
@@ -133,6 +133,7 @@ button.random {
   height: 38px;
   color: rgb(78, 174, 83);
   font-weight: bold;
+  background-color: rgb(255, 255, 255);
 }
 
 button.search.button {
@@ -140,6 +141,7 @@ button.search.button {
   height: 38px;
   margin-top: 0;
   font-weight: bold;
+  background-color: rgb(255, 255, 255);
 }
 
 .forecast-week {
@@ -166,12 +168,22 @@ p.forecast-temp {
 }
 
 .forecast-image {
+  display: block;
   border: 5px solid black;
   border-radius: 65%;
   margin-left: auto;
   margin-right: auto;
   width: 50px;
   text-align: center;
+  height: 50px;
+}
+
+.daily-icon {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  bottom: 3px;
+  right: 5px;
 }
 
 .week {
@@ -194,5 +206,5 @@ h5 {
 
 footer {
   text-align: center;
-  margin: 150px 0 0 0;
+  margin: 50px 0 0 0;
 }

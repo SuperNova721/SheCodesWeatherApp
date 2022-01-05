@@ -52,13 +52,13 @@ function displayForecast(response) {
 
   let forecastHTML = `<div class="row week">`;
 
-  forecast.forEach(function (forecastDay) {
-    let weatherCondition = forecastDay.weather[0].main;
-    let forecastDayIcon = `${iconMap[weatherCondition]}`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      let weatherCondition = forecastDay.weather[0].main;
 
-    forecastHTML =
-      forecastHTML +
-      `
+      forecastHTML =
+        forecastHTML +
+        `
     
     <div class="col">
       <p class="forecast-temp">
@@ -70,11 +70,15 @@ function displayForecast(response) {
           forecastDay.temp.min
         )}°</span>
       </p>
-      <div class="forecast-image">${forecastDayIcon}
+      <div class="forecast-image"> <img class="daily-icon" src="${
+        iconMap[weatherCondition]
+      }">
       </div>
+      
       <p class="forecast-day">${formatDay(forecastDay.dt)}</p>
     </div>
   `;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
