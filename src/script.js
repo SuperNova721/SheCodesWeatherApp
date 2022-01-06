@@ -36,6 +36,7 @@ let iconMap = {
   Clear: "src/images/sunny.png",
   Clouds: "src/images/cloudy.png",
   Mist: "src/images/lightrain.png",
+  Haze: "src/images/cloudy.png",
 };
 
 function formatDay(timestamp) {
@@ -89,7 +90,7 @@ function displayForecast(response) {
 function getForecast(coordinates) {
   console.log(coordinates);
   let apiKey = "e285e913cd6f177ca8795431a5a72d10";
-  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
   console.log(apiURL);
 
   axios.get(apiURL).then(displayForecast);
@@ -102,18 +103,18 @@ function showTemp(response) {
   console.log(response.data.name);
   console.log(response.data.main.temp);
 
-  celciusTemp = response.data.main.temp;
-  console.log(celciusTemp);
+  fahrenheitTemp = response.data.main.temp;
+  console.log(fahrenheitTemp);
 
-  let temp = Math.round(celciusTemp);
+  let temp = Math.round(fahrenheitTemp);
   console.log(temp);
   let showTemp = document.querySelector(`#showTemp`);
   showTemp.innerHTML = `${temp}`;
   let city = document.querySelector(`#mainCity`);
   city.innerHTML = `${response.data.name}`;
-  let speed = Math.round(response.data.wind.speed);
+  let speed = Math.round(response.data.wind.speed / 1.609);
   let windSpeed = document.querySelector(`#windSpeed`);
-  windSpeed.innerHTML = `Wind Speed: ${speed}`;
+  windSpeed.innerHTML = `Wind Speed: ${speed} MPH`;
   let weatherCondition = response.data.weather[0].main;
   let weatherDescription = document.querySelector(`#weatherDescription`);
   weatherDescription.innerHTML = `${weatherCondition}`;
@@ -136,7 +137,7 @@ function findCity(event) {
 function search(city) {
   let searchCity = document.querySelector("#searchCity");
   let cityLocation = searchCity.value;
-  let units = "metric";
+  let units = "imperial";
   let apiKey = "e285e913cd6f177ca8795431a5a72d10";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityLocation}&appid=${apiKey}&units=${units}`;
   console.log(apiUrl);
@@ -151,7 +152,7 @@ function retrievePosition(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiKey = "e285e913cd6f177ca8795431a5a72d10";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`;
   axios.get(`${apiUrl}&appid${apiKey}`).then(showTemp);
 }
 
@@ -165,18 +166,43 @@ function locationClick(event) {
   navigator.geolocation.getCurrentPosition(retrievePosition);
 }
 
-function showFahrenheit(event) {
+function nameCity(response) {
+  let randomCity = document.querySelector(`#mainCity`);
+}
+
+function findOnClick(event) {
   event.preventDefault();
-  let temp = document.querySelector("#showTemp");
-  let fahrenheitTemp = (celciusTemp * 9) / 5 + 32;
-  console.log(fahrenheitTemp);
-  temp.innerHTML = Math.round(fahrenheitTemp);
+  let cities = [
+    "London",
+    "Tokyo",
+    "Paris",
+    "Rome",
+    "Washington D.C.",
+    "Berlin",
+    "Buenos Aires",
+    "Bangkok",
+  ];
+
+  let randomCity = Math.floor(Math.random() * cities.length);
+  console.log(randomCity, cities[randomCity]);
+  let apiKey = "e285e913cd6f177ca8795431a5a72d10";
+  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${cities[randomCity]}&appid=${apiKey}&units=imperial`;
+
+  axios.get(encodeURI(apiURL)).then(showTemp);
 }
 
 function showCelcius(event) {
   event.preventDefault();
   let temp = document.querySelector("#showTemp");
+  let celciusTemp = ((fahrenheitTemp - 32) * 5) / 9;
+  console.log(celciusTemp);
   temp.innerHTML = Math.round(celciusTemp);
+}
+
+function showFahrenheit(event) {
+  event.preventDefault();
+  let temp = document.querySelector("#showTemp");
+  temp.innerHTML = Math.round(fahrenheitTemp);
 }
 
 let celsiusTemp = null;
@@ -189,6 +215,10 @@ form.addEventListener("submit", findCity);
 let getLocation = document.querySelector("#currentLocation");
 console.log(getLocation);
 getLocation.addEventListener("click", locationClick);
+
+let findLocation = document.querySelector("#randomLocation");
+console.log(findLocation);
+findLocation.addEventListener("click", findOnClick);
 
 let fahrenheitLink = document.querySelector("#fahrenheitLink");
 console.log("fahrenheitLink");
