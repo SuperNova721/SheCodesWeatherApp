@@ -97,11 +97,6 @@ a:active {
   color: rgb(184, 66, 247);
 }
 
-a:focus,
-a:active {
-  color: rgb(78, 174, 83);
-}
-
 form {
   text-align: center;
   margin: 0 0 5px 0;
