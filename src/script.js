@@ -197,20 +197,12 @@ function showCelcius(event) {
   let celciusTemp = ((fahrenheitTemp - 32) * 5) / 9;
   console.log(celciusTemp);
   temp.innerHTML = Math.round(celciusTemp);
-  let tempUnitFahrenheit = document.querySelector("#fahrenheitLink");
-  tempUnitFahrenheit.innerHTML = "°C";
-  let tempUnitCelcius = document.querySelector("#celciusLink");
-  tempUnitCelcius.innerHTML = "|°F";
 }
 
 function showFahrenheit(event) {
   event.preventDefault();
   let temp = document.querySelector("#showTemp");
   temp.innerHTML = Math.round(fahrenheitTemp);
-  let tempUnit = document.querySelector("#celciusLink");
-  tempUnit.innerHTML = "|°F";
-  let tempUnitFahrenheit = document.querySelector("#fahrenheitLink");
-  tempUnitFahrenheit.innerHTML = "°C";
 }
 
 let celsiusTemp = null;
@@ -245,5 +237,3 @@ celciusLink.addEventListener("click", showCelcius);
 
 //when page loads current location in reflected in the mainicon,
 // and city name and temperature.
-
-//when clicking on celcius make unit turn into fahrenheit
